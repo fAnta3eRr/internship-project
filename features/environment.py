@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.support import expected_conditions as EC
 from app.application import Application
 from selenium.webdriver.chrome.options import Options
@@ -13,9 +14,25 @@ def browser_init(context):  # BROWSERSTACK  add(scenario_name)
     :param context: Behave context
     """
     # Chrome
-    driver_path = ChromeDriverManager().install()
-    service = Service(driver_path)
-    context.driver = webdriver.Chrome(service=service)
+    #driver_path = ChromeDriverManager().install()
+    #service = Service(driver_path)
+    #context.driver = webdriver.Chrome(service=service)
+
+    # Firefox
+    #driver_path = GeckoDriverManager().install()
+    #service = Service(driver_path)
+    #context.driver = webdriver.Firefox(service=service)
+
+
+    ### HEADLESS MODE ####
+
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    service = Service(ChromeDriverManager().install())
+    context.driver = webdriver.Chrome(
+       options=options,
+       service=service
+     )
 
 
     context.driver.maximize_window()
@@ -40,3 +57,6 @@ def after_step(context, step):
 
 def after_scenario(context, feature):
     context.driver.quit()
+
+
+
