@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -10,8 +12,7 @@ class OffPlanPage(BasePage):
 
     EMAIL_FILED = (By.CSS_SELECTOR, "[type='email']")
     PASSWORD_FIELD = (By.CSS_SELECTOR, "[data-name='Password']")
-    OFF_PLAN_BUTTON = (By.CSS_SELECTOR, "[class*='1-link-menu']")
-    RIGHT_PAGE = (By.XPATH, "//div[text()= 'Total projects']")
+    RIGHT_PAGE = (By.XPATH, "//div[text()= 'Off-plan']")
     CONTINUE_BUTTON = (By.CSS_SELECTOR, "[wized='loginButton']")
     APPLY_FILTER_BUTTON = (By.CSS_SELECTOR, "[wized='applyFilterButton']")
     MIN_PRICE_FIELD = (By.XPATH, "//div/div[1]//input[@id='field-5']")
@@ -19,6 +20,7 @@ class OffPlanPage(BasePage):
     PRODUCT_PRICE = (By.CSS_SELECTOR,  "[class='price-value']")
     PRODUCT_CARDS = (By.CSS_SELECTOR, "[wized='cardOfProperty']")
     FILTER_BUTTON = (By.XPATH, "//a[@wized='openFiltersWindow']//div[@class='filter-text']")
+    HEADER_TXT = (By.XPATH, "//div[text()= '{SUBSTRING}']")
 
 
     def valid_credentials(self, username, password):
@@ -27,12 +29,12 @@ class OffPlanPage(BasePage):
         self.wait_and_click(*self.CONTINUE_BUTTON)
 
 
-    def click_off_plan(self):
-        self.wait_and_click(*self.OFF_PLAN_BUTTON)
+    def click_header_locator(self, header_text):
+        return [self.HEADER_TXT[0], self.HEADER_TXT[1].replace('{SUBSTRING}', header_text)]
 
 
     def verify_right_page_opens(self):
-        self.verify_text('Total projects', *self.RIGHT_PAGE)
+        self.verify_text('Off-plan',*self.RIGHT_PAGE)
 
 
     def click_filter_button(self):
@@ -59,6 +61,10 @@ class OffPlanPage(BasePage):
                 invalid_prices.append(f'Missing or invalid price in card: {card}')
 
         assert not invalid_prices, f"Found invalid prices: {invalid_prices}"
+
+
+
+
 
 
 
