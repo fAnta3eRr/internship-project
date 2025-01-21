@@ -18,7 +18,6 @@ def input_search(context, search_word):
 @when('Click on search icon')
 def click_search_icon(context):
     context.app.google_search_page.click_search_icon()
-    sleep(4)
 
 
 @then('Product results for {product_name} are shown')

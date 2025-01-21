@@ -1,5 +1,4 @@
 from dataclasses import replace
-
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -26,7 +25,10 @@ class OffPlanPage(BasePage):
     def valid_credentials(self, username, password):
         self.input_text(username, *self.EMAIL_FILED)
         self.input_text(password, *self.PASSWORD_FIELD)
-        self.wait_and_click(*self.CONTINUE_BUTTON)
+        button = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.CONTINUE_BUTTON)
+        )
+        button.click()
 
 
     def click_header_locator(self, header_text):
@@ -44,7 +46,10 @@ class OffPlanPage(BasePage):
     def filter_by_price(self, low_price, high_price):
         self.input_text(low_price, *self.MIN_PRICE_FIELD)
         self.input_text(high_price, *self.MAX_PRICE_FILED)
-        self.wait_and_click(*self.APPLY_FILTER_BUTTON)
+        filter_button = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.APPLY_FILTER_BUTTON)
+        )
+        filter_button.click()
 
 
     def verify_prices_in_range(self, low_price, high_price):
