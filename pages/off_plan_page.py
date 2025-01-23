@@ -25,7 +25,7 @@ class OffPlanPage(BasePage):
     def valid_credentials(self, username, password):
         self.input_text(username, *self.EMAIL_FILED)
         self.input_text(password, *self.PASSWORD_FIELD)
-        button = WebDriverWait(self.driver, 10).until(
+        button = WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable(self.CONTINUE_BUTTON)
         )
         button.click()
@@ -46,7 +46,7 @@ class OffPlanPage(BasePage):
     def filter_by_price(self, low_price, high_price):
         self.input_text(low_price, *self.MIN_PRICE_FIELD)
         self.input_text(high_price, *self.MAX_PRICE_FILED)
-        filter_button = WebDriverWait(self.driver, 10).until(
+        filter_button = WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable(self.APPLY_FILTER_BUTTON)
         )
         filter_button.click()

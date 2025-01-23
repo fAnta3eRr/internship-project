@@ -18,7 +18,8 @@ class GoogleSearchPage(BasePage):
         self.input_text(product_name, *self.SEARCH_INPUT)
 
     def click_search_icon(self):
-        self.click(*self.SEARCH_SUBMIT)
+        self.wait_and_click(*self.SEARCH_SUBMIT)
 
     def verify_found_results_text(self, product_name):
-        self.verify_text(product_name, *self.SEARCH_INPUT)
+        result = self.verify_text(product_name, *self.SEARCH_INPUT)
+        assert 'Car' in result, F'Expected "{product_name}",but got "{result}"'

@@ -19,9 +19,9 @@ def browser_init(context):  # BROWSERSTACK add(scenario_name)
     #context.driver = webdriver.Chrome(service=service)
 
     #Firefox
-    # driver_path = GeckoDriverManager().install()
-    # service = Service(driver_path)
-    # context.driver = webdriver.Firefox(service=service)
+    #driver_path = GeckoDriverManager().install()
+    #service = Service(driver_path)
+    #context.driver = webdriver.Firefox(service=service)
 
 
     ### HEADLESS MODE ####
@@ -76,6 +76,9 @@ def after_step(context, step):
 
 def after_scenario(context, feature):
     context.driver.quit()
+
+
+
 
 
 
