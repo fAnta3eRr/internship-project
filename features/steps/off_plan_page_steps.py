@@ -25,9 +25,19 @@ def verify_right_page_opens(context):
     context.app.off_plan_page.verify_right_page_opens()
 
 
+@then('Verify the right page opens in mobile')
+def verify_right_page_opens(context):
+    context.app.off_plan_page.verify_right_page_opens_mobile()
+
+
 @then('Click the Filters button in the top right corner')
 def click_filter_button(context):
     context.app.off_plan_page.click_filter_button()
+
+
+@then('Click the Filters button in the top right corner in mobile')
+def click_filter_button_mobile(context):
+    context.app.off_plan_page.click_filter_button_mobile()
 
 
 @then('Filter the products by price range from {low_amount} to {high_amount} AED')

@@ -1,4 +1,6 @@
 from dataclasses import replace
+from time import sleep
+
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -12,6 +14,7 @@ class OffPlanPage(BasePage):
     EMAIL_FILED = (By.CSS_SELECTOR, "[type='email']")
     PASSWORD_FIELD = (By.CSS_SELECTOR, "[data-name='Password']")
     RIGHT_PAGE = (By.XPATH, "//div[text()= 'Off-plan']")
+    RIGHT_PAGE_MOBILE = (By.CSS_SELECTOR, 'a[wized="mobileTabProperties"] [class="menu-text"]')
     CONTINUE_BUTTON = (By.CSS_SELECTOR, "[wized='loginButton']")
     APPLY_FILTER_BUTTON = (By.CSS_SELECTOR, "[wized='applyFilterButton']")
     MIN_PRICE_FIELD = (By.XPATH, "//div/div[1]//input[@id='field-5']")
@@ -19,6 +22,7 @@ class OffPlanPage(BasePage):
     PRODUCT_PRICE = (By.CSS_SELECTOR,  "[class='price-value']")
     PRODUCT_CARDS = (By.CSS_SELECTOR, "[wized='cardOfProperty']")
     FILTER_BUTTON = (By.XPATH, "//a[@wized='openFiltersWindow']//div[@class='filter-text']")
+    FILTER_BUTTON_MOBILE = (By.CSS_SELECTOR, "div[class='filter-button']")
     HEADER_TXT = (By.XPATH, "//div[text()= '{SUBSTRING}']")
 
 
@@ -39,8 +43,15 @@ class OffPlanPage(BasePage):
         self.verify_text('Off-plan',*self.RIGHT_PAGE)
 
 
+    def verify_right_page_opens_mobile(self):
+        self.verify_text('Off-plan',*self.RIGHT_PAGE_MOBILE)
+
+
     def click_filter_button(self):
         self.wait_and_click(*self.FILTER_BUTTON)
+
+    def click_filter_button_mobile(self):
+        self.wait_and_click(*self.FILTER_BUTTON_MOBILE)
 
 
     def filter_by_price(self, low_price, high_price):
